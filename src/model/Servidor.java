@@ -25,8 +25,7 @@ public class Servidor {
 						cliente.getInetAddress().getHostAddress());
 	
 				this.clientes.add(cliente);
-	
-				TratadorDeMensagemDoCliente tc = new TratadorDeMensagemDoCliente(cliente, this);
+				RequestHandler tc = new RequestHandler(cliente, this);
 				new Thread(tc).start();
 			}
 		}
