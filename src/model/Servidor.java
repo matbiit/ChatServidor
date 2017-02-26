@@ -4,16 +4,17 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Servidor {
 
 	private int porta;
-	private List<Socket> clientes;
+	private HashMap<Integer, Socket> clientes;
 
 	public Servidor(int porta) {
 		this.porta = porta;
-		this.clientes = new ArrayList<>();
+		this.clientes = new HashMap<>();
 	}
 
 	public void execute() throws IOException  {
@@ -24,7 +25,7 @@ public class Servidor {
 				System.out.println("Nova conexão com o cliente " + 
 						cliente.getInetAddress().getHostAddress());
 	
-				this.clientes.add(cliente);
+				this.clientes.put(cliente.getPort(), cliente);
 				RequestHandler tc = new RequestHandler(cliente, this);
 				new Thread(tc).start();
 			}
@@ -32,7 +33,7 @@ public class Servidor {
 	}
 
 	public void distribuiMensagem(Socket clienteQueEnviou, String msg) {
-		for (Socket cliente : this.clientes) {
+		for (Socket cliente : this.clientes.values()) {
 			try {
 				PrintStream ps = new PrintStream(cliente.getOutputStream());
 				ps.println(msg);				
@@ -42,4 +43,13 @@ public class Servidor {
 			}
 		}
 	}
+	
+	public void identifyUser(int oldIdentifier, int newIdentifier){
+		clientes.put(newIdentifier, clientes.get(oldIdentifier));
+		clientes.remove(oldIdentifier);
+		for (Integer keys : clientes.keySet()) {
+			
+		}
+	}
+	
 }

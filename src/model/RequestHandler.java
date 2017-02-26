@@ -18,8 +18,10 @@ class RequestHandler implements Runnable {
 
 	public void run() {
 		try(Scanner s = new Scanner(this.cliente.getInputStream())) {
+			ResponseHandler response = new ResponseHandler();
 			while (s.hasNextLine()) {
-				servidor.distribuiMensagem(this.cliente, s.nextLine());
+				RequestProtocol request = parser.parseToRequest(s.nextLine());
+				servidor.distribuiMensagem(this.cliente, response.buildResponseFrom(request));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
