@@ -10,7 +10,7 @@ import java.util.List;
 public class Servidor {
 
 	private int porta;
-	private HashMap<Integer, Socket> clientes;
+	HashMap<String, Socket> clientes;
 
 	public Servidor(int porta) {
 		this.porta = porta;
@@ -24,8 +24,6 @@ public class Servidor {
 				Socket cliente = servidor.accept();
 				System.out.println("Nova conexão com o cliente " + 
 						cliente.getInetAddress().getHostAddress());
-	
-				this.clientes.put(cliente.getPort(), cliente);
 				RequestHandler tc = new RequestHandler(cliente, this);
 				new Thread(tc).start();
 			}
@@ -41,14 +39,6 @@ public class Servidor {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	public void identifyUser(int oldIdentifier, int newIdentifier){
-		clientes.put(newIdentifier, clientes.get(oldIdentifier));
-		clientes.remove(oldIdentifier);
-		for (Integer keys : clientes.keySet()) {
-			
 		}
 	}
 	
