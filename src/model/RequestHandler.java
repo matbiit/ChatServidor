@@ -30,16 +30,19 @@ class RequestHandler implements Runnable {
 	private void checkCommand(RequestProtocol request) {
 		
 		ResponseHandler response = new ResponseHandler();
-		
+		String msg = null;
 		switch (request.getCmd().toLowerCase()) {
 		case "login":
 			if(!this.servidor.clientes.containsKey(request.getId()))
 				this.servidor.clientes.put(request.getId(), this.cliente);
+			servidor.enviaMensagemAoCliente(cliente, response.doLogin(request.getId()));
+			break;
+		case "enviar":
+			if(request.getDst().equals(servidor.ID))
+				servidor.doKnocKnoc(cliente, request.getData());
 			break;
 		default:
 			break;
-		}
-		servidor.distribuiMensagem(this.cliente, response.buildResponseFrom(request));
-		
+		}		
 	}
 }

@@ -17,7 +17,7 @@ public class ResponseHandler {
 		}
 	}
 
-	private String doLogin(String id) {
+	public String doLogin(String id) {
 		// TODO verifica se há mensagens pelo id;
 		ResponseProtocol response = new ResponseProtocol();
 		response.setId("0");
