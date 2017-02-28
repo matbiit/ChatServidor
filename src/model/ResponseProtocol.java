@@ -7,6 +7,7 @@ public class ResponseProtocol {
 	private String id;
 	private String msgNr;
 	private String[] data;
+	private int userLoggedIn;
 	
 	public ResponseProtocol(){
 		this.msgNr = UUID.randomUUID().toString();
@@ -29,5 +30,13 @@ public class ResponseProtocol {
 	}
 	public void setData(String[] data) {
 		this.data = data;
+	}
+
+	public int getUserLoggedIn() {
+		return userLoggedIn;
+	}
+
+	public void setUserLoggedIn(int userLoggedIn) {
+		this.userLoggedIn = userLoggedIn;
 	}
 }

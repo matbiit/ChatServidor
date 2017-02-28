@@ -11,6 +11,7 @@ public class Servidor {
 
 	private int porta;
 	HashMap<String, Socket> clientes;
+	private Joke joke;
 	final String ID = "0";
 	
 	public Servidor(int porta) {
@@ -34,8 +35,7 @@ public class Servidor {
 	public void enviaMensagemAoCliente(Socket clienteQueEnviou, String msg){
 		try {
 			PrintStream ps = new PrintStream(clienteQueEnviou.getOutputStream());
-			ps.println(msg);
-			ps.flush();
+			ps.print(msg); //se o cliente for java, println
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -56,19 +56,14 @@ public class Servidor {
 
 	
 	public void doKnocKnoc(Socket cliente, String msg) {
-		if(msg.equals("piada")){
-			this.enviaMensagemAoCliente(cliente, "Knoc knoc");
-		}
-		else if(msg.equals("quem é?")){
-			this.enviaMensagemAoCliente(cliente, "É o sunda");
-		}
-		else if(msg.equals("que sunda?")){
-			this.enviaMensagemAoCliente(cliente, "O que comeu sua bunda! hahahaha");
-		}
-		else {
-			this.enviaMensagemAoCliente(cliente, "Entendi não filhão :/");
-		}
-		
+		if(joke == null || joke.isEnd())
+			this.joke = new JokeRepository().getJoke();
+		System.out.println(joke.isEnd());
+		this.enviaMensagemAoCliente(cliente, this.joke.tell(msg));
+	}
+	
+	public int usersLoggedIn(){
+		return this.clientes.size() -1;
 	}
 	
 }

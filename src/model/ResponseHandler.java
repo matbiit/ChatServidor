@@ -7,20 +7,12 @@ public class ResponseHandler {
 	public ResponseHandler(){
 		this.parser = new Parser();
 	}
-	
-	public String buildResponseFrom(RequestProtocol request) {
-		switch (request.getCmd()) {
-		case "login":
-			return this.doLogin(request.getId());
-		default:
-			return "";
-		}
-	}
 
-	public String doLogin(String id) {
+	public String doLogin(String id, int userLoggedIn) {
 		// TODO verifica se há mensagens pelo id;
 		ResponseProtocol response = new ResponseProtocol();
 		response.setId("0");
+		response.setUserLoggedIn(userLoggedIn);
 		return this.parser.parseResponseToJson(response);
 	}
 	

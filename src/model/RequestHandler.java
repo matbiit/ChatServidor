@@ -35,7 +35,8 @@ class RequestHandler implements Runnable {
 		case "login":
 			if(!this.servidor.clientes.containsKey(request.getId()))
 				this.servidor.clientes.put(request.getId(), this.cliente);
-			servidor.enviaMensagemAoCliente(cliente, response.doLogin(request.getId()));
+			servidor.enviaMensagemAoCliente(cliente, 
+					response.doLogin(request.getId(), servidor.usersLoggedIn()));
 			break;
 		case "enviar":
 			if(request.getDst().equals(servidor.ID))
