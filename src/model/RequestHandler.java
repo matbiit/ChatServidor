@@ -31,6 +31,7 @@ class RequestHandler implements Runnable {
 		
 		ResponseHandler response = new ResponseHandler();
 		String msg = null;
+		
 		switch (request.getCmd().toLowerCase()) {
 		case "login":
 			if(!this.servidor.clientes.containsKey(request.getId()))
@@ -47,11 +48,13 @@ class RequestHandler implements Runnable {
 					servidor.enviaMensagemAoCliente(dest, request.getData());					
 				}
 				else {
-					servidor.registerMessage(request.getId(), request.getData());
+					servidor.registerMessage(request.getMsgNr(), request.getId(), 
+							request.getDst(), request.getData());
 				}
 				servidor.enviaMensagemAoCliente(cliente, response.sendFeedback());
 			}
-				
+			break;
+		case "receber":
 			break;
 		default:
 			break;

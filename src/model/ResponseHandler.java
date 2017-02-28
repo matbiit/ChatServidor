@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 public class ResponseHandler {
 	
 	private Parser parser;
@@ -8,11 +10,11 @@ public class ResponseHandler {
 		this.parser = new Parser();
 	}
 
-	public String doLogin(String id, int userLoggedIn) {
+	public String doLogin(String id, Set<String> set) {
 		// TODO verifica se há mensagens pelo id;
 		ResponseProtocol response = new ResponseProtocol();
 		response.setId("0");
-		response.setUserLoggedIn(userLoggedIn);
+		response.setUserLoggedIn(set);
 		return this.parser.parseResponseToJson(response);
 	}
 

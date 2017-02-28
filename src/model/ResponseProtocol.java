@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class ResponseProtocol {
@@ -7,7 +8,7 @@ public class ResponseProtocol {
 	private String id;
 	private String msgNr;
 	private String[] data;
-	private int userLoggedIn;
+	private Set<String> userLoggedIn;
 	
 	public ResponseProtocol(){
 		this.msgNr = UUID.randomUUID().toString();
@@ -32,11 +33,11 @@ public class ResponseProtocol {
 		this.data = data;
 	}
 
-	public int getUserLoggedIn() {
+	public Set<String> getUserLoggedIn() {
 		return userLoggedIn;
 	}
 
-	public void setUserLoggedIn(int userLoggedIn) {
-		this.userLoggedIn = userLoggedIn;
+	public void setUserLoggedIn(Set<String> set) {
+		this.userLoggedIn = set;
 	}
 }

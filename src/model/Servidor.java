@@ -7,17 +7,20 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Servidor {
 
 	private int porta;
-	HashMap<String, Socket> clientes;
 	private Joke joke;
 	final String ID = "0";
+	HashMap<String, Socket> clientes;
+	ArrayList<StoredMessage> messages;
 	
 	public Servidor(int porta) {
 		this.porta = porta;
 		this.clientes = new HashMap<>();
+		this.messages = new ArrayList<>();
 	}
 
 	public void execute() throws IOException  {
@@ -63,12 +66,13 @@ public class Servidor {
 		this.enviaMensagemAoCliente(cliente, this.joke.tell(msg));
 	}
 	
-	public int usersLoggedIn(){
-		return this.clientes.size() -1;
+	public Set<String> usersLoggedIn(){
+		return this.clientes.keySet();
 	}
 
-	public void registerMessage(String src, String msg) {
-		Timestamp time = new Timestamp(System.currentTimeMillis());
+	public void registerMessage(String uid, String to, String from, String msg) {
+		StoredMessage message = new StoredMessage(uid, to, from, msg);
+		this.messages.add(message);
 		
 	}
 	
