@@ -15,5 +15,11 @@ public class ResponseHandler {
 		response.setUserLoggedIn(userLoggedIn);
 		return this.parser.parseResponseToJson(response);
 	}
+
+	public String sendFeedback() {
+		ResponseProtocol response = new ResponseProtocol();
+		response.setId("0");
+		return this.parser.parseResponseToJson(response);
+	}
 	
 }

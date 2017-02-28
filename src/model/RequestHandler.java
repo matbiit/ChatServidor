@@ -47,9 +47,9 @@ class RequestHandler implements Runnable {
 					servidor.enviaMensagemAoCliente(dest, request.getData());					
 				}
 				else {
-					servidor.registerMessage(request);
+					servidor.registerMessage(request.getId(), request.getData());
 				}
-				//retorna o response.
+				servidor.enviaMensagemAoCliente(cliente, response.sendFeedback());
 			}
 				
 			break;

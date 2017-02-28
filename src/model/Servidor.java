@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,8 +67,8 @@ public class Servidor {
 		return this.clientes.size() -1;
 	}
 
-	public void registerMessage(RequestProtocol request) {
-		// TODO Auto-generated method stub
+	public void registerMessage(String src, String msg) {
+		Timestamp time = new Timestamp(System.currentTimeMillis());
 		
 	}
 	
