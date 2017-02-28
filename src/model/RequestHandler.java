@@ -41,6 +41,17 @@ class RequestHandler implements Runnable {
 		case "enviar":
 			if(request.getDst().equals(servidor.ID))
 				servidor.doKnocKnoc(cliente, request.getData());
+			else {
+				Socket dest = servidor.clientes.get(request.getDst());
+				if(dest != null){
+					servidor.enviaMensagemAoCliente(dest, request.getData());					
+				}
+				else {
+					servidor.registerMessage(request);
+				}
+				//retorna o response.
+			}
+				
 			break;
 		default:
 			break;

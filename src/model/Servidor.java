@@ -65,5 +65,10 @@ public class Servidor {
 	public int usersLoggedIn(){
 		return this.clientes.size() -1;
 	}
+
+	public void registerMessage(RequestProtocol request) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
