@@ -1,8 +1,11 @@
 package model;
 
+import java.awt.List;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
 
 class RequestHandler implements Runnable {
 
@@ -30,7 +33,6 @@ class RequestHandler implements Runnable {
 	private void checkCommand(RequestProtocol request) {
 		
 		ResponseHandler response = new ResponseHandler();
-		String msg = null;
 		
 		switch (request.getCmd().toLowerCase()) {
 		case "login":
@@ -48,13 +50,14 @@ class RequestHandler implements Runnable {
 					servidor.enviaMensagemAoCliente(dest, request.getData());					
 				}
 				else {
-					servidor.registerMessage(request.getMsgNr(), request.getId(), 
-							request.getDst(), request.getData());
+					servidor.registerMessage(request);
 				}
 				servidor.enviaMensagemAoCliente(cliente, response.sendFeedback());
 			}
 			break;
 		case "receber":
+			ArrayList<StoredMessage> userMessages = (ArrayList<StoredMessage>) servidor.getUserMessages(request.getId());
+			servidor.enviaMensagemAoCliente(cliente, response.messageFeedback(userMessages));
 			break;
 		default:
 			break;

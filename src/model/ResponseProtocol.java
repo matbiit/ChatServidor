@@ -29,7 +29,7 @@ public class ResponseProtocol {
 	public String[] getData() {
 		return data;
 	}
-	public void setData(String[] data) {
+	public void setData(String... data) {
 		this.data = data;
 	}
 
@@ -37,7 +37,7 @@ public class ResponseProtocol {
 		return userLoggedIn;
 	}
 
-	public void setUserLoggedIn(Set<String> set) {
+	public void setUsersLoggedIn(Set<String> set) {
 		this.userLoggedIn = set;
 	}
 }

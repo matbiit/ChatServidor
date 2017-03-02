@@ -5,9 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Servidor {
 
@@ -70,9 +74,15 @@ public class Servidor {
 		return this.clientes.keySet();
 	}
 
-	public void registerMessage(String uid, String to, String from, String msg) {
-		StoredMessage message = new StoredMessage(uid, to, from, msg);
-		this.messages.add(message);
+	public void registerMessage(RequestProtocol request) {
+		StoredMessage message = new StoredMessage(
+				request.getMsgNr(), request.getDst(), request.getId(), request.getData());
+		this.messages.add(message);		
+	}
+
+	public List<StoredMessage> getUserMessages(String userId) {
+		return this.messages.stream()
+		.filter(x -> userId.equals(x.getFrom())).collect(Collectors.toList());
 		
 	}
 	
