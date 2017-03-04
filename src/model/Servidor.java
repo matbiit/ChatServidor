@@ -3,20 +3,16 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Servidor {
 
 	private int porta;
-	private Joke joke;
+	private KnocKnocJoke joke;
 	final String ID = "0";
 	HashMap<String, Socket> clientes;
 	ArrayList<StoredMessage> messages;
@@ -66,7 +62,6 @@ public class Servidor {
 	public void doKnocKnoc(Socket cliente, String msg) {
 		if(joke == null || joke.isEnd())
 			this.joke = new JokeRepository().getJoke();
-		System.out.println(joke.isEnd());
 		this.enviaMensagemAoCliente(cliente, this.joke.tell(msg));
 	}
 	
@@ -74,15 +69,17 @@ public class Servidor {
 		return this.clientes.keySet();
 	}
 
-	public void registerMessage(RequestProtocol request) {
+	public synchronized void registerMessage(RequestProtocol request) {
+		System.out.println("Entrei aqui para armazenar a mensagem!");
 		StoredMessage message = new StoredMessage(
 				request.getMsgNr(), request.getDst(), request.getId(), request.getData());
-		this.messages.add(message);		
+		System.out.println(request.getDst() + " " + request.getData());
+		this.messages.add(message);
 	}
 
 	public List<StoredMessage> getUserMessages(String userId) {
 		return this.messages.stream()
-		.filter(x -> userId.equals(x.getFrom())).collect(Collectors.toList());
+		.filter(x -> userId.equals(x.getTo())).collect(Collectors.toList());
 		
 	}
 	

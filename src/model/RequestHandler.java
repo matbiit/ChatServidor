@@ -1,11 +1,9 @@
 package model;
 
-import java.awt.List;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Vector;
 
 class RequestHandler implements Runnable {
 
@@ -56,6 +54,7 @@ class RequestHandler implements Runnable {
 			}
 			break;
 		case "receber":
+			System.out.println("Entrei aqui!");
 			ArrayList<StoredMessage> userMessages = (ArrayList<StoredMessage>) servidor.getUserMessages(request.getId());
 			servidor.enviaMensagemAoCliente(cliente, response.messageFeedback(userMessages));
 			break;

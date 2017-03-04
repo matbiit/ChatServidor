@@ -3,17 +3,19 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Joke {
+public class KnocKnocJoke {
 	
 	List<String> answers;
 	private int answerIndex;
+	private boolean isEnd;
 	
-	public Joke(){
+	public KnocKnocJoke(){
 		this.answers = new ArrayList<String>();
+		this.answers.add("Knoc knoc");
 	}
 	
 	public boolean isEnd() {
-		return answers.size() == answerIndex;
+		return this.isEnd;
 	}
 
 	public String tell(String msg) {
@@ -26,6 +28,7 @@ public class Joke {
 			answer = answers.get(answerIndex);
 		else if(msg.equals(answers.get(answerIndex) + " quem?")){
 			answer = answers.get(++answerIndex);
+			this.isEnd = true;
 		}
 		else{
 			answer = "Não entendi porra nenhuma.";
