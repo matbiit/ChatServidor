@@ -11,10 +11,14 @@ public class StoredMessage {
 	private Timestamp time;
 
 	public StoredMessage(String uid, String to, String from, String msg) {
-		this.uid = uid;
-		this.to = to;
-		this.from = from;
-		this.msg = msg;
+		
+	}
+
+	public StoredMessage(RequestProtocol request) {
+		this.uid = request.getMsgNr();
+		this.to = request.getDst();
+		this.from = request.getId();
+		this.msg = request.getData();
 		this.time = new Timestamp(System.currentTimeMillis());
 	}
 

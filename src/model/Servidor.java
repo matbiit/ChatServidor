@@ -69,12 +69,8 @@ public class Servidor {
 		return this.clientes.keySet();
 	}
 
-	public synchronized void registerMessage(RequestProtocol request) {
-		System.out.println("Entrei aqui para armazenar a mensagem!");
-		StoredMessage message = new StoredMessage(
-				request.getMsgNr(), request.getDst(), request.getId(), request.getData());
-		System.out.println(request.getDst() + " " + request.getData());
-		this.messages.add(message);
+	public synchronized void registerMessage(StoredMessage msg) {
+		this.messages.add(msg);
 	}
 
 	public List<StoredMessage> getUserMessages(String userId) {

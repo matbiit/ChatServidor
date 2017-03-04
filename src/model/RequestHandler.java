@@ -48,13 +48,13 @@ class RequestHandler implements Runnable {
 					servidor.enviaMensagemAoCliente(dest, request.getData());					
 				}
 				else {
-					servidor.registerMessage(request);
+					StoredMessage message = new StoredMessage(request);
+					servidor.registerMessage(message);
 				}
 				servidor.enviaMensagemAoCliente(cliente, response.sendFeedback());
 			}
 			break;
 		case "receber":
-			System.out.println("Entrei aqui!");
 			ArrayList<StoredMessage> userMessages = (ArrayList<StoredMessage>) servidor.getUserMessages(request.getId());
 			servidor.enviaMensagemAoCliente(cliente, response.messageFeedback(userMessages));
 			break;
